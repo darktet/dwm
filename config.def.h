@@ -26,8 +26,10 @@ static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_NONE;
 static int fakefsindicatortype           = INDICATOR_TOP_LEFT_SQUARE;
 static int floatfakefsindicatortype      = INDICATOR_PLUS;
-static const char *fonts[]               = {"mononoki Nerd Font Mono:size=10:antialias=true:autohint=true",
-                                            "JoyPixels:size=10:antialias=true:autohint=true"};
+static const char *fonts[] = {
+	"Iosevka Nerd Font:pixelsize=14:antialias=true:autohint=true",
+	"JoyPixels:pixelsize=14:antialias=true:autohint=true"
+};
 
 static char c000000[]                    = "#000000"; // placeholder value
 static char normfgcolor[]                = "#bababa";
@@ -36,9 +38,9 @@ static char normbordercolor[]            = "#292d3e";
 static char normfloatcolor[]             = "#292d3e";
 
 static char selfgcolor[]                 = "#ffffff";
-static char selbgcolor[]                 = "#f07178";
+static char selbgcolor[]                 = "#81a1c1";
 static char selbordercolor[]             = "#111111";
-static char selfloatcolor[]              = "#f07178";
+static char selfloatcolor[]              = "#81a1c1";
 
 static char titlenormfgcolor[]           = "#bababa";
 static char titlenormbgcolor[]           = "#292d3e";
@@ -46,9 +48,9 @@ static char titlenormbordercolor[]       = "#292d3e";
 static char titlenormfloatcolor[]        = "#292d3e";
 
 static char titleselfgcolor[]            = "#ffffff";
-static char titleselbgcolor[]            = "#f07178";
+static char titleselbgcolor[]            = "#81a1c1";
 static char titleselbordercolor[]        = "#292d3e";
-static char titleselfloatcolor[]         = "#f07178";
+static char titleselfloatcolor[]         = "#81a1c1";
 
 static char tagsnormfgcolor[]            = "#bbbbbb";
 static char tagsnormbgcolor[]            = "#111111";
@@ -56,9 +58,9 @@ static char tagsnormbordercolor[]        = "#292d3e";
 static char tagsnormfloatcolor[]         = "#292d3e";
 
 static char tagsselfgcolor[]             = "#bbbbbb";
-static char tagsselbgcolor[]             = "#f07178";
+static char tagsselbgcolor[]             = "#81a1c1";
 static char tagsselbordercolor[]         = "#292d3e";
-static char tagsselfloatcolor[]          = "#f07178";
+static char tagsselfloatcolor[]          = "#81a1c1";
 
 static char hidfgcolor[]                 = "#005577";
 static char hidbgcolor[]                 = "#222222";
@@ -76,8 +78,8 @@ static char normMONObgcolor[]            = "#111111";
 static char normGRIDbgcolor[]            = "#111111";
 static char normGRD1bgcolor[]            = "#111111";
 static char normGRD2bgcolor[]            = "#111111";
-static char normGRDMbgcolor[]            = "#f07178";
-static char normHGRDbgcolor[]            = "#f07178";
+static char normGRDMbgcolor[]            = "#81a1c1";
+static char normHGRDbgcolor[]            = "#81a1c1";
 static char normDWDLbgcolor[]            = "#111111";
 static char normSPRLbgcolor[]            = "#111111";
 static char normfloatbgcolor[]           = "#292d3e";
@@ -92,17 +94,17 @@ static char actHGRDbgcolor[]             = "#292d3e";
 static char actDWDLbgcolor[]             = "#292d3e";
 static char actSPRLbgcolor[]             = "#292d3e";
 static char actfloatbgcolor[]            = "#292d3e";
-static char selTTBbgcolor[]              = "#f07178";
-static char selLTRbgcolor[]              = "#f07178";
-static char selMONObgcolor[]             = "#f07178";
-static char selGRIDbgcolor[]             = "#f07178";
-static char selGRD1bgcolor[]             = "#f07178";
-static char selGRD2bgcolor[]             = "#f07178";
-static char selGRDMbgcolor[]             = "#f07178";
-static char selHGRDbgcolor[]             = "#f07178";
-static char selDWDLbgcolor[]             = "#f07178";
-static char selSPRLbgcolor[]             = "#f07178";
-static char selfloatbgcolor[]            = "#f07178";
+static char selTTBbgcolor[]              = "#81a1c1";
+static char selLTRbgcolor[]              = "#81a1c1";
+static char selMONObgcolor[]             = "#81a1c1";
+static char selGRIDbgcolor[]             = "#81a1c1";
+static char selGRD1bgcolor[]             = "#81a1c1";
+static char selGRD2bgcolor[]             = "#81a1c1";
+static char selGRDMbgcolor[]             = "#81a1c1";
+static char selHGRDbgcolor[]             = "#81a1c1";
+static char selDWDLbgcolor[]             = "#81a1c1";
+static char selSPRLbgcolor[]             = "#81a1c1";
+static char selfloatbgcolor[]            = "#81a1c1";
 
 
 static char *colors[][ColCount] = {
@@ -188,7 +190,7 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I" },
 };
 
 /* grid of tags */
@@ -323,12 +325,13 @@ static Key on_empty_keys[] = {
 static Key keys[] = {
 	/* modifier                     key            function                argument */
   /* Spawing preograms*/
+	{ M,					   XK_F5,		  spawn,                  SHCMD("meld") },
+	{ M,                       XK_F4,		  spawn,                  SHCMD("thunar") },
 	{ M,                       XK_Return,     spawn,                  SHCMD("$TERMINAL") },
 	{ M,                       XK_e,          spawn,                  SHCMD("emacsclient -c -a emacs") },
 	{ M|S,                     XK_c,          spawn,                  SHCMD("emacsclient -c -a e'macs' --eval '(ibuffer)'") },
 	{ M,                       XK_w,          spawn,                  SHCMD("$BROWSER") },
-	{ M,                       XK_i,          spawn,                  SHCMD("chromium") },
-	{ A,                       XK_Escape,     spawn,                  SHCMD("xkill") },
+	{ C|S,                     XK_Escape,     spawn,                  SHCMD("xkill") },
 	{ C|A,                     XK_s,          spawn,                  SHCMD("spotify") },
 	{ C|A,                     XK_d,          spawn,                  SHCMD("discord") },
 	{ M,                       XK_u,          spawn,                  SHCMD("sleep 0.2 ; scrot -s my-stuff/pictures/snips/") },
@@ -337,7 +340,7 @@ static Key keys[] = {
 	{ M|A,                     XK_m,          spawn,                  SHCMD("multimc") },
 	{ M|C|A,                   XK_l,          spawn,                  SHCMD("slock") },
   /* Dmenu scripts */
-	{ M|S,                     XK_Return,     spawn,                  SHCMD("dmenu_run -X 5 -Y 5 -W 1900 -bw 5 -l 5 -g 10 -p 'Run:'") },
+	{ M|S,                     XK_d,		  spawn,                  SHCMD("dmenu_run") },
 	{ M|S,                     XK_s,          spawn,                  SHCMD("switch") },
 	{ M,                       XK_c,          spawn,                  SHCMD("volume-script") },
 	{ M|C,                     XK_Return,     spawn,                  SHCMD("Booky 'emacsclient -c -a emacs' '><'") },
@@ -372,6 +375,16 @@ static Key keys[] = {
 	{ A|S,                     XK_Up,         moveresize,             {.v = "0x 0y 0w -25h" } },
 	{ A|S,                     XK_Right,      moveresize,             {.v = "0x 0y 25w 0h" } },
 	{ A|S,                     XK_Left,       moveresize,             {.v = "0x 0y -25w 0h" } },
+
+	{ C|A,					   XK_Down,       moveresize,             {.v = "0x 1y 0w 0h" } },
+	{ C|A,                     XK_Up,         moveresize,             {.v = "0x -1y 0w 0h" } },
+	{ C|A,                     XK_Right,      moveresize,             {.v = "1x 0y 0w 0h" } },
+	{ C|A,                     XK_Left,       moveresize,             {.v = "-1x 0y 0w 0h" } },
+	{ C|A|S,                   XK_Down,       moveresize,             {.v = "0x 0y 0w 1h" } },
+	{ C|A|S,                   XK_Up,         moveresize,             {.v = "0x 0y 0w -1h" } },
+	{ C|A|S,                   XK_Right,      moveresize,             {.v = "0x 0y 1w 0h" } },
+	{ C|A|S,                   XK_Left,       moveresize,             {.v = "0x 0y -1w 0h" } },
+
 	{ M,                       XK_x,          transfer,               {0} },
 	{ M|C,                     XK_x,          reorganizetags,         {0} },
 	{ M|S,                     XK_equal,      incrgaps,               {.i = +1 } },
@@ -478,6 +491,15 @@ static Key keys[] = {
 	TAGKEYS(                  XK_7,                                  6)
 	TAGKEYS(                  XK_8,                                  7)
 	TAGKEYS(                  XK_9,                                  8)
+    TAGKEYS(                  XK_KP_1,                               9)
+    TAGKEYS(                  XK_KP_2,                              10)
+    TAGKEYS(                  XK_KP_3,                              11)
+    TAGKEYS(                  XK_KP_4,                              12)
+    TAGKEYS(                  XK_KP_5,                              13)
+    TAGKEYS(                  XK_KP_6,                              14)
+    TAGKEYS(                  XK_KP_7,                              15)
+    TAGKEYS(                  XK_KP_8,                              16)
+    TAGKEYS(                  XK_KP_9,                              17)
 };
 
 static Key cmdkeys[] = {
