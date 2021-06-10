@@ -338,7 +338,7 @@ static Key keys[] = {
 	{ M,                       XK_p,          spawn,                  SHCMD("pcmanfm") },
 	{ M,                       XK_a,          spawn,                  SHCMD("$TERMINAL ./.config/vifm/scripts/vifmrun") },
 	{ M|A,                     XK_m,          spawn,                  SHCMD("multimc") },
-	{ M|C|A,                   XK_l,          spawn,                  SHCMD("slock") },
+	{ M,                       XK_l,          spawn,                  SHCMD("slock") },
   /* Dmenu scripts */
 	{ M|S,                     XK_d,		  spawn,                  SHCMD("dmenu_run") },
 	{ M|S,                     XK_s,          spawn,                  SHCMD("switch") },
