@@ -27,7 +27,7 @@ static int floatindicatortype            = INDICATOR_NONE;
 static int fakefsindicatortype           = INDICATOR_TOP_LEFT_SQUARE;
 static int floatfakefsindicatortype      = INDICATOR_PLUS;
 static const char *fonts[] = {
-	"Iosevka Nerd Font:pixelsize=14:antialias=true:autohint=true",
+	"FiraCode Nerd Font:pixelsize=13:antialias=true:autohint=true",
 	"JoyPixels:pixelsize=14:antialias=true:autohint=true"
 };
 
@@ -265,7 +265,7 @@ static const MonitorRule monrules[] = {
  */
 static const BarRule barrules[] = {
 	/* monitor  bar    alignment         widthfunc                drawfunc                clickfunc                name */
-    { -1,       0,     BAR_ALIGN_LEFT,         width_tags,               draw_tags,               click_tags,               "tags" },
+  { -1,       0,     BAR_ALIGN_LEFT,         width_tags,               draw_tags,               click_tags,               "tags" },
 	{ -1,       0,     BAR_ALIGN_LEFT,         width_taggrid,            draw_taggrid,            click_taggrid,            "taggrid" },
 	{ -1,       0,     BAR_ALIGN_RIGHT,        width_systray,            draw_systray,            click_systray,            "systray" },
 	{ -1,       0,     BAR_ALIGN_RIGHT,        width_status2d,           draw_status2d,           click_statuscmd,          "status2d" },
@@ -303,16 +303,21 @@ static const Layout layouts[] = {
 #define Su Mod4Mask // super
 #define Sgr Mod5Mask // shiftGr
 
+/*
+
+Deprecated for tmux config
+
+{ C,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ A,                       KEY,      toggletag,      {.ui = 1 << TAG} }, \
+{ A|S,                     KEY,      swaptags,       {.ui = 1 << TAG} }, \
+{ A|C,                     KEY,      tagnextmon,     {.ui = 1 << TAG} }, \
+{ A|C|S,                   KEY,      tagprevmon,     {.ui = 1 << TAG} },
+
+*/
 #define TAGKEYS(KEY,TAG) \
 	{ M,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ C,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ A,                       KEY,      toggletag,      {.ui = 1 << TAG} }, \
 	{ M|S,                     KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ M|C,                     KEY,      tagwith,        {.ui = 1 << TAG} }, \
-	{ A|S,                     KEY,      swaptags,       {.ui = 1 << TAG} }, \
-	{ A|C,                     KEY,      tagnextmon,     {.ui = 1 << TAG} }, \
-	{ A|C|S,                   KEY,      tagprevmon,     {.ui = 1 << TAG} },
-
+	{ M|C,                     KEY,      tagwith,        {.ui = 1 << TAG} },
 
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -328,18 +333,16 @@ static Key keys[] = {
   /* Spawing preograms*/
 	{ M,			                 XK_F5,         spawn,                  SHCMD("meld") },
 	{ M,                       XK_p,          spawn,                  SHCMD("thunar") },
-	{ M,                       XK_Return,     spawn,                  SHCMD("$TERMINAL") },
+	{ M,                       XK_Return,     spawn,                  SHCMD("$TERMINAL || st") },
+  { M|S,                     XK_Return,     spawn,                  SHCMD("rofi -show drun") },
 	{ M,                       XK_w,          spawn,                  SHCMD("$BROWSER") },
 	{ C|S,                     XK_Escape,     spawn,                  SHCMD("xkill") },
 	{ C|A,                     XK_d,          spawn,                  SHCMD("discord") },
-	{ M|A,                     XK_m,          spawn,                  SHCMD("MultiMC") },
 	{ M|S,                     XK_l,          spawn,                  SHCMD("slock") },
   /* Dmenu scripts */
 	{ M|S,                     XK_d,          spawn,                  SHCMD("dmenu_run") },
-	{ M|S,                     XK_s,          spawn,                  SHCMD("switch") },
-	{ M,                       XK_c,          spawn,                  SHCMD("volume-script") },
 	{ M|S,                     XK_e,          spawn,                  SHCMD("emoji-script") },
-	{ M|S,                     XK_c,          spawn,                  SHCMD("calcc") },
+	{ M|C,                     XK_c,          spawn,                  SHCMD("=") },
   /* DWM keybindings */
 	{ A,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	{ M|S|C,                   XK_b,          togglebar,              {0} },
@@ -468,6 +471,7 @@ static Key keys[] = {
 	// { Agr|A,             XK_m,           floatpos,               {.v = "-1p  1p" } }, // ↙
 	// { Agr|A,             XK_comma,       floatpos,               {.v = " 0p  1p" } }, // ↓
 	// { Agr|A,             XK_period,      floatpos,               {.v = " 1p  1p" } }, // ↘
+
 	{ M|S,                    XK_i,           cyclelayout,            {.i = -1 } },
 	{ M|S,                    XK_p,           cyclelayout,            {.i = +1 } },
 	{ M|A|S,                  XK_comma,       tagallmon,              {.i = +1 } },
@@ -481,15 +485,15 @@ static Key keys[] = {
 	TAGKEYS(                  XK_7,                                  6)
 	TAGKEYS(                  XK_8,                                  7)
 	TAGKEYS(                  XK_9,                                  8)
-        TAGKEYS(                  XK_KP_1,                               9)
-        TAGKEYS(                  XK_KP_2,                              10)
-        TAGKEYS(                  XK_KP_3,                              11)
-        TAGKEYS(                  XK_KP_4,                              12)
-        TAGKEYS(                  XK_KP_5,                              13)
-        TAGKEYS(                  XK_KP_6,                              14)
-        TAGKEYS(                  XK_KP_7,                              15)
-        TAGKEYS(                  XK_KP_8,                              16)
-        TAGKEYS(                  XK_KP_9,                              17)
+  TAGKEYS(                  XK_KP_1,                               9)
+  TAGKEYS(                  XK_KP_2,                              10)
+  TAGKEYS(                  XK_KP_3,                              11)
+  TAGKEYS(                  XK_KP_4,                              12)
+  TAGKEYS(                  XK_KP_5,                              13)
+  TAGKEYS(                  XK_KP_6,                              14)
+  TAGKEYS(                  XK_KP_7,                              15)
+  TAGKEYS(                  XK_KP_8,                              16)
+  TAGKEYS(                  XK_KP_9,                              17)
 };
 
 static Key cmdkeys[] = {
