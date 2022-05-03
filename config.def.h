@@ -154,7 +154,7 @@ static char *colors[][ColCount] = {
 
 
 
-const char *spcmd1[] = {"st", "-n", "spterm", "-t", "stSCP", "-g", "144x41", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-t", "stSCP", "-g", "144x41", "-e", "st_notmux", NULL };
 const char *spcmd2[] = {"st", "-n", "spfm", "-t", "vifmSCP", "-g", "144x41", "-e", "./.config/vifm/scripts/vifmrun", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
