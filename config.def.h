@@ -154,7 +154,7 @@ static char *colors[][ColCount] = {
 
 
 
-const char *spcmd1[] = {"st", "-n", "spterm", "-t", "stSCP", "-g", "144x41", "-e", "st_notmux", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-t", "stSCP", "-g", "144x41", NULL };
 const char *spcmd2[] = {"st", "-n", "spfm", "-t", "vifmSCP", "-g", "144x41", "-e", "./.config/vifm/scripts/vifmrun", NULL };
 static Sp scratchpads[] = {
    /* name          cmd  */
@@ -333,7 +333,8 @@ static Key keys[] = {
   /* Spawing preograms*/
 	{ M,			                 XK_F5,         spawn,                  SHCMD("meld") },
 	{ M,                       XK_p,          spawn,                  SHCMD("thunar") },
-	{ M,                       XK_Return,     spawn,                  SHCMD("$TERMINAL || st") },
+	{ M,                     	 XK_Return,     spawn,                  SHCMD("st -e st_tmux || $TERMINAL") },
+	{ C|M,                     XK_Return,     spawn,                  SHCMD("$TERMINAL || st") },
   { M|S,                     XK_Return,     spawn,                  SHCMD("rofi -show drun") },
 	{ M,                       XK_w,          spawn,                  SHCMD("$BROWSER") },
 	{ C|S,                     XK_Escape,     spawn,                  SHCMD("xkill") },
